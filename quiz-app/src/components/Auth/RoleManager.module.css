@@ -1,0 +1,82 @@
+.roleManagerContainer {
+  padding: 16px;
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.roleManagerTitle {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 16px;
+  color: #333;
+}
+
+.roleManagerGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.roleManagerCard {
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 10px;
+  border: 1px solid #e5e7eb;
+}
+
+.roleManagerForm {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.roleManagerInput {
+  flex: 1;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+.roleManagerButton {
+  padding: 8px 16px;
+  background-color: #4f46e5;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.roleManagerButton:hover {
+  background-color: #4338ca;
+}
+
+.roleManagerList {
+  list-style: none;
+  padding: 0;
+  margin-top: 10px;
+}
+
+.roleManagerItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px solid #ddd;
+}
+
+.roleManagerActions button {
+  margin-left: 8px;
+  padding: 6px 10px;
+  font-size: 14px;
+  background-color: #e5e7eb;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.roleManagerActions button:hover {
+  background-color: #d1d5db;
+}

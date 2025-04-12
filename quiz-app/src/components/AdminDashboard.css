@@ -1,0 +1,128 @@
+/* Reset & Base */
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: 'Inter', sans-serif;
+  background-color: #f3f4f6;
+  box-sizing: border-box;
+  overflow-x: hidden;
+}
+
+/* Layout container */
+.layout {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 250px;
+  background-color: #1e293b;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  padding: 1rem;
+  height: 100vh;
+  box-shadow: 2px 0 6px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar h1 {
+  font-size: 1.25rem;
+  margin-bottom: 1rem;
+}
+
+/* Sidebar items */
+.sidebar ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.sidebar ul li {
+  padding: 0.5rem 1rem;
+  margin-bottom: 0.25rem;
+  border-radius: 0.5rem;
+  transition: background-color 0.2s;
+  cursor: pointer;
+}
+
+.sidebar ul li:hover {
+  background-color: #334155;
+}
+
+/* Logout button */
+.logout-btn {
+  margin-top: auto;
+  background-color: #1cc4b2;
+  color: white;
+  padding: 0.75rem 1rem;
+  font-weight: 500;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+  transition: background-color 0.2s ease;
+}
+
+.logout-btn:hover {
+  background-color: #0d9488;
+}
+
+/* Main content */
+.main {
+  flex-grow: 1;
+  padding: 2rem;
+  overflow-y: auto;
+}
+
+/* Search input */
+.search-input {
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  border: 1px solid #d1d5db;
+  outline: none;
+  width: 250px;
+  margin-bottom: 1.5rem;
+}
+
+/* Welcome heading */
+.welcome-text {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+/* Statistic cards */
+.stat-card {
+  padding: 1rem 1.5rem;
+  border-radius: 1rem;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
+  margin-bottom: 1rem;
+  min-height: 120px;
+}
+
+.stat-card.pink { background-color: #ec4899; }
+.stat-card.indigo { background-color: #6366f1; }
+.stat-card.blue { background-color: #3b82f6; }
+.stat-card.green { background-color: #10b981; }
+
+.stat-title {
+  font-size: 1.1rem;
+  margin-bottom: 0.25rem;
+}
+
+.stat-value {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.stat-icon {
+  font-size: 2rem;
+}

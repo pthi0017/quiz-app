@@ -1,0 +1,156 @@
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #f3f4f6;
+    
+  }
+  
+/* AdminDashboard.css */
+.sidebar {
+  width: 250px;
+  background-color: #1e293b;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  position: relative;
+  flex-shrink: 0; /* Giữ nguyên chiều rộng không bị ép nhỏ */
+}
+
+  
+  /* Sidebar items */
+  .sidebar ul li {
+    padding: 0.75rem 1.5rem;
+    cursor: pointer;
+    transition: color 0.2s ease-in-out;
+  }
+  
+  .sidebar ul li:hover {
+    color: #facc15; /* Tailwind: text-yellow-400 */
+  }
+  
+  /* Statistic cards */
+  .stat-card {
+    padding: 1rem;
+    border-radius: 1rem; /* Tailwind: rounded-xl */
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
+  }
+  
+  .stat-card.pink { background-color: #ec4899; }
+  .stat-card.indigo { background-color: #6366f1; }
+  .stat-card.blue { background-color: #3b82f6; }
+  .stat-card.green { background-color: #10b981; }
+  
+  /* Content cards */
+  .dashboard-card {
+    background-color: white;
+    padding: 1rem;
+    border-radius: 1rem;
+    box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
+  }
+  
+  /* Search input */
+  .search-input {
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    border: 1px solid #d1d5db;
+    outline: none;
+  }
+  
+  /* Logout button */
+  .logout-btn {
+    margin-top: auto;
+    background-color: #1cc4b2;
+    color: white;
+    border-radius: 8px;
+    padding: 0.75rem;
+    font-weight: 500;
+    border: none;
+    cursor: pointer;
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+  }
+  
+  
+  .logout-btn:hover {
+    background-color: #0d9488;
+  }
+  .layout {
+    display: flex;
+    min-height: 100vh;
+  }
+  .role-manager-container {
+    padding: 1.5rem;
+  }
+  
+  .rm-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+  }
+  
+  .rm-grid-container {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 1rem;
+  }
+  
+  .rm-card {
+    background: white;
+    border-radius: 1rem;
+  }
+  
+  
+  .rm-form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  
+  .rm-form-input {
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    border: 1px solid #ccc;
+    outline: none;
+  }
+  
+  .rm-form-btn {
+    background-color: #3b82f6;
+    color: white;
+    padding: 0.5rem;
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+  }
+  
+  .rm-form-btn:hover {
+    background-color: #2563eb;
+  }
+  
+  .rm-role-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .rm-role-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #eee;
+  }
+  
+  .rm-actions button {
+    margin-left: 0.5rem;
+    background: none;
+    border: none;
+    color: #2563eb;
+    cursor: pointer;
+  }
+  
+  .rm-actions button:hover {
+    text-decoration: underline;
+  }
+  
