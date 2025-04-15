@@ -1,71 +1,102 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
+import './LoginPage.css';
 
-export default function LoginForm() {
+export default function LoginPage() {
   const [form, setForm] = useState({ email: '', matkhau: '' });
-  const [message, setMessage] = useState('');
-  const navigate = useNavigate();
+  const [message, setMessage] = useState({ text: '', type: '' });
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate(); // Dùng useNavigate để chuyển hướng
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleLogin = async () => {
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setMessage({ text: '', type: '' });
+
+    if (!form.email || !form.matkhau) {
+      setMessage({ text: 'Vui lòng nhập email và mật khẩu', type: 'error' });
+      setLoading(false);
+      return;
+    }
+
     try {
-      const res = await axios.post('http://localhost/WEBQUIZZ/Chucnang/login.php', form);
-      if (res.data.success) {
-        const user = res.data.user;
-        localStorage.setItem('user', JSON.stringify(user));
-        setMessage('Đăng nhập thành công');
+      const res = await axios.post('http://localhost/WEBQUIZZ/Chucnang/login.php', form, {
+        headers: { 'Content-Type': 'application/json' },
+      });
 
-        // 👉 Điều hướng theo quyền người dùng
-        if (user.manhomquyen === '1') {
-          navigate('/dashboard');
-        } else {
-          navigate('/exam');
-        }
+      let data = res.data;
 
+      // Nếu backend trả về chuỗi JSON -> chuyển sang object
+      if (typeof data === 'string') {
+        data = JSON.parse(data);
+      }
+
+      if (data.success) {
+        // Lưu thông tin người dùng vào localStorage
+        localStorage.setItem('user', JSON.stringify(data.user));
+        setMessage({ text: 'Đăng nhập thành công', type: 'success' });
+
+        // Chuyển hướng trang sau khi đăng nhập thành công
+        setTimeout(() => {
+          // Chuyển hướng đến trang Admin nếu là admin, trang chủ nếu là user
+          if (data.user.manhomquyen === 1) {
+            navigate('/dashboard'); // Admin dashboard
+          } else {
+            navigate('/'); // Trang chính cho user
+          }
+        }, 1000);
       } else {
-        setMessage(res.data.message || 'Sai tài khoản hoặc mật khẩu');
+        setMessage({ text: data.message || 'Sai email hoặc mật khẩu', type: 'error' });
       }
     } catch (err) {
-      console.error(err);
-      setMessage('Lỗi máy chủ');
+      setMessage({ text: 'Lỗi kết nối máy chủ', type: 'error' });
+      console.error("Lỗi:", err);
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
-    <div className="p-4 max-w-md mx-auto">
-      <h2 className="text-2xl mb-4 font-bold">Đăng nhập</h2>
-      <input
-        name="email"
-        placeholder="Email"
-        onChange={handleChange}
-        className="input w-full mb-2 p-2 border rounded"
-      />
-      <input
-        name="matkhau"
-        type="password"
-        placeholder="Mật khẩu"
-        onChange={handleChange}
-        className="input w-full mb-2 p-2 border rounded"
-      />
-      <button
-        onClick={handleLogin}
-        className="bg-green-500 text-white px-4 py-2 mt-2 rounded hover:bg-green-600"
-      >
-        Đăng nhập
-      </button>
-
-      <p className="mt-3">
-        Chưa có tài khoản?{' '}
-        <Link to="/register" className="text-blue-500 hover:underline">
-          Đăng ký
-        </Link>
-      </p>
-
-      <p className="mt-2 text-red-500">{message}</p>
+    <div className="login-container">
+      <div className="login-form">
+        <h2>Đăng nhập</h2>
+        {message.text && (
+          <div className={`message ${message.type === 'error' ? 'error' : 'success'}`}>
+            {message.text}
+          </div>
+        )}
+        <form onSubmit={handleLogin}>
+          <input
+            name="email"
+            type="email"
+            value={form.email}
+            onChange={handleChange}
+            placeholder="Email"
+            className="input-field"
+            required
+          />
+          <input
+            name="matkhau"
+            type="password"
+            value={form.matkhau}
+            onChange={handleChange}
+            placeholder="Mật khẩu"
+            className="input-field"
+            required
+          />
+          <button type="submit" className="login-btn" disabled={loading}>
+            {loading ? 'Đang đăng nhập...' : 'Đăng nhập'}
+          </button>
+        </form>
+        <div className="register-link">
+          <p>Chưa có tài khoản? <Link to="/register">Đăng ký tại đây</Link></p>
+        </div>
+      </div>
     </div>
   );
 }

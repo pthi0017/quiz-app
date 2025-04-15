@@ -1,0 +1,89 @@
+[14-Apr-2025 17:47:23 UTC] Raw input: {"hoten":"phạm thành thi","email":"admin@gmail.com","matkhau":"12345678","ngaysinh":"2002-11-19","gioitinh":"1","sodienthoai":"0783452754"}
+[14-Apr-2025 17:47:23 UTC] Error: Cannot add or update a child row: a foreign key constraint fails (`tracnghiemonline`.`nguoidung`, CONSTRAINT `FK_NGUOIDUNG_NHOMQUYEN` FOREIGN KEY (`manhomquyen`) REFERENCES `nhomquyen` (`manhomquyen`))
+[14-Apr-2025 17:52:34 UTC] Raw input: {"hoten":"Pham Thanh Thi","email":"admin@gmail.com","matkhau":"12345678","ngaysinh":"2002-11-18","gioitinh":"1","sodienthoai":"0783452754"}
+[14-Apr-2025 17:52:34 UTC] Error: Cannot add or update a child row: a foreign key constraint fails (`tracnghiemonline`.`nguoidung`, CONSTRAINT `FK_NGUOIDUNG_NHOMQUYEN` FOREIGN KEY (`manhomquyen`) REFERENCES `nhomquyen` (`manhomquyen`))
+[14-Apr-2025 17:58:46 UTC] ERROR: Cannot add or update a child row: a foreign key constraint fails (`tracnghiemonline`.`nguoidung`, CONSTRAINT `FK_NGUOIDUNG_NHOMQUYEN` FOREIGN KEY (`manhomquyen`) REFERENCES `nhomquyen` (`manhomquyen`))
+[14-Apr-2025 18:09:21 UTC] ERROR: Cannot add or update a child row: a foreign key constraint fails (`tracnghiemonline`.`nguoidung`, CONSTRAINT `FK_NGUOIDUNG_NHOMQUYEN` FOREIGN KEY (`manhomquyen`) REFERENCES `nhomquyen` (`manhomquyen`))
+[14-Apr-2025 18:09:32 UTC] ERROR: Cannot add or update a child row: a foreign key constraint fails (`tracnghiemonline`.`nguoidung`, CONSTRAINT `FK_NGUOIDUNG_NHOMQUYEN` FOREIGN KEY (`manhomquyen`) REFERENCES `nhomquyen` (`manhomquyen`))
+[14-Apr-2025 18:17:03 UTC] ERROR: Cannot add or update a child row: a foreign key constraint fails (`tracnghiemonline`.`nguoidung`, CONSTRAINT `FK_NGUOIDUNG_NHOMQUYEN` FOREIGN KEY (`manhomquyen`) REFERENCES `nhomquyen` (`manhomquyen`))
+[14-Apr-2025 18:17:04 UTC] ERROR: Cannot add or update a child row: a foreign key constraint fails (`tracnghiemonline`.`nguoidung`, CONSTRAINT `FK_NGUOIDUNG_NHOMQUYEN` FOREIGN KEY (`manhomquyen`) REFERENCES `nhomquyen` (`manhomquyen`))
+[14-Apr-2025 18:17:52 UTC] ERROR: Cannot add or update a child row: a foreign key constraint fails (`tracnghiemonline`.`nguoidung`, CONSTRAINT `FK_NGUOIDUNG_NHOMQUYEN` FOREIGN KEY (`manhomquyen`) REFERENCES `nhomquyen` (`manhomquyen`))
+[14-Apr-2025 18:32:27 UTC] ERROR: Cannot add or update a child row: a foreign key constraint fails (`tracnghiemonline`.`nguoidung`, CONSTRAINT `FK_NGUOIDUNG_NHOMQUYEN` FOREIGN KEY (`manhomquyen`) REFERENCES `nhomquyen` (`manhomquyen`))
+[14-Apr-2025 18:35:49 UTC] ERROR: Email đã được sử dụng
+[14-Apr-2025 18:35:53 UTC] ERROR: Email đã được sử dụng
+[14-Apr-2025 18:35:53 UTC] ERROR: Email đã được sử dụng
+[14-Apr-2025 18:35:53 UTC] ERROR: Email đã được sử dụng
+[14-Apr-2025 18:35:53 UTC] ERROR: Email đã được sử dụng
+[14-Apr-2025 18:35:53 UTC] ERROR: Email đã được sử dụng
+[14-Apr-2025 18:35:54 UTC] ERROR: Email đã được sử dụng
+[14-Apr-2025 18:35:54 UTC] ERROR: Email đã được sử dụng
+[14-Apr-2025 18:35:54 UTC] ERROR: Email đã được sử dụng
+[14-Apr-2025 18:35:54 UTC] ERROR: Email đã được sử dụng
+[14-Apr-2025 18:35:54 UTC] ERROR: Email đã được sử dụng
+[14-Apr-2025 18:35:54 UTC] ERROR: Email đã được sử dụng
+[14-Apr-2025 18:35:55 UTC] ERROR: Email đã được sử dụng
+[14-Apr-2025 18:35:55 UTC] ERROR: Email đã được sử dụng
+[14-Apr-2025 18:35:55 UTC] ERROR: Email đã được sử dụng
+[14-Apr-2025 18:36:08 UTC] ERROR: Email đã được sử dụng
+[14-Apr-2025 18:49:28 UTC] ERROR: Column 'id' cannot be null
+SQL Error: Column 'id' cannot be null
+[14-Apr-2025 18:49:30 UTC] ERROR: Column 'id' cannot be null
+SQL Error: Column 'id' cannot be null
+[14-Apr-2025 18:49:43 UTC] ERROR: Column 'id' cannot be null
+SQL Error: Column 'id' cannot be null
+[14-Apr-2025 19:26:19 UTC] ERROR: Email đã được sử dụng
+SQL Error: 
+[14-Apr-2025 19:31:59 UTC] ERROR: Email đã được sử dụng
+SQL Error: 
+[14-Apr-2025 19:40:53 UTC] ERROR: Duplicate entry '' for key 'nguoidung.PRIMARY'
+SQL Error: Duplicate entry '' for key 'nguoidung.PRIMARY'
+[14-Apr-2025 19:55:15 UTC] ERROR: Duplicate entry '' for key 'nguoidung.PRIMARY'
+SQL Error: Duplicate entry '' for key 'nguoidung.PRIMARY'
+[14-Apr-2025 19:59:34 UTC] ERROR: Duplicate entry '' for key 'nguoidung.PRIMARY'
+SQL Error: Duplicate entry '' for key 'nguoidung.PRIMARY'
+[14-Apr-2025 20:06:08 UTC] Dữ liệu nhận được: Array
+(
+    [hoten] => Thi Phạm Thành
+    [email] => admin@gmail.com
+    [matkhau] => 123456789
+    [ngaysinh] => 2002-01-01
+    [gioitinh] => 1
+    [sodienthoai] => 0783452754
+    [manhomquyen] => 2
+)
+
+[14-Apr-2025 20:07:35 UTC] Dữ liệu nhận được: Array
+(
+    [hoten] => Pham Hồng Thái
+    [email] => thai@gmail.com
+    [matkhau] => 12345678
+    [ngaysinh] => 1989-01-01
+    [gioitinh] => 1
+    [sodienthoai] => 0931239766
+    [manhomquyen] => 2
+)
+
+[14-Apr-2025 20:07:35 UTC] ERROR: Duplicate entry '' for key 'nguoidung.PRIMARY'
+[15-Apr-2025 05:54:57 UTC] 📥 Dữ liệu nhận: Array
+(
+    [hoten] => Pham Hồng Thái
+    [email] => admin@gmail.com
+    [matkhau] => 1234567890
+    [ngaysinh] => 1989-01-01
+    [gioitinh] => 1
+    [sodienthoai] => 0931239766
+    [manhomquyen] => 2
+)
+
+[15-Apr-2025 05:56:37 UTC] 📥 Dữ liệu nhận: Array
+(
+    [hoten] => Phạm Thành Thi
+    [email] => admin2@gmail.com
+    [matkhau] => 123456789
+    [ngaysinh] => 1989-01-01
+    [gioitinh] => 1
+    [sodienthoai] => 0931239766
+    [manhomquyen] => 2
+)
+
+[15-Apr-2025 05:56:37 UTC] ❌ ERROR: Duplicate entry '' for key 'nguoidung.PRIMARY'

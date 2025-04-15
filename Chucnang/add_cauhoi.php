@@ -1,31 +1,31 @@
 <?php
-include 'connect.php';
+
+include('connect.php'); // Kết nối cơ sở dữ liệu
+header("Content-Type: application/json; charset=UTF-8");
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Headers: Content-Type");
 header("Access-Control-Allow-Methods: POST");
-$data = json_decode(file_get_contents("php://input"), true);
+if (isset($_POST['noidung'], $_POST['dokho'], $_POST['mamonhoc'], $_POST['machuong'])) {
+    $noidung = $_POST['noidung'];
+    $dokho = $_POST['dokho'];
+    $mamonhoc = $_POST['mamonhoc'];
+    $machuong = $_POST['machuong'];
+    $nguoitao = $_POST['nguoitao']; // Giả sử nguoitao được gửi từ phía client
 
-$noidung = mysqli_real_escape_string($conn, $data['noidung']);
-$mamonhoc = (int)$data['mamonhoc'];
-$machuong = (int)$data['machuong'];
-$mucdo = mysqli_real_escape_string($conn, $data['mucdo']);
-$dapan = $data['dapan']; // Mảng [{noidungtl, ladapan}]
+    $sql = "INSERT INTO macauhoi (noidung, dokho, mamonhoc, machuong, nguoitao) 
+            VALUES (?, ?, ?, ?, ?)";
 
-$sql_cauhoi = "INSERT INTO cauhoi (noidung, mamonhoc, machuong, mucdo)
-               VALUES ('$noidung', $mamonhoc, $machuong, '$mucdo')";
-if (mysqli_query($conn, $sql_cauhoi)) {
-    $macauhoi = mysqli_insert_id($conn);
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("siiss", $noidung, $dokho, $mamonhoc, $machuong, $nguoitao);
 
-    foreach ($dapan as $dp) {
-        $nd = mysqli_real_escape_string($conn, $dp['noidungtl']);
-        $ladapan = $dp['ladapan'] ? 1 : 0;
-        $sql_dapan = "INSERT INTO cautraloi (macauhoi, noidungtl, ladapan)
-                      VALUES ($macauhoi, '$nd', $ladapan)";
-        mysqli_query($conn, $sql_dapan);
+    if ($stmt->execute()) {
+        echo json_encode(["status" => "success", "message" => "Câu hỏi đã được thêm."]);
+    } else {
+        echo json_encode(["status" => "error", "message" => "Thêm câu hỏi thất bại."]);
     }
 
-    echo json_encode(["message" => "Thêm câu hỏi thành công"]);
-} else {
-    echo json_encode(["error" => "Lỗi khi thêm câu hỏi"]);
+    $stmt->close();
 }
+
+$conn->close();
 ?>

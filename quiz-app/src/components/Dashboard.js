@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { FiUsers, FiFileText, FiClipboard } from "react-icons/fi";
+import RoleManager from "./Auth/RoleManager";
+import './AdminDashboard.css';
+import QuestionManager from "./QuestionManager";
+import ExamManager from "./ExamManager";
 import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid,
   Tooltip, Legend, ResponsiveContainer
 } from 'recharts';
-import { FiUsers, FiFileText, FiClipboard } from "react-icons/fi";
-import RoleManager from "./Auth/RoleManager";
-import './AdminDashboard.css';
 
 const AdminDashboard = () => {
   const [data, setData] = useState(null);
@@ -30,6 +32,10 @@ const AdminDashboard = () => {
     { name: 'T7', điểm: 85 },
   ];
 
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+  };
+
   if (loading) {
     return <div className="flex items-center justify-center h-screen text-xl">Đang tải dữ liệu...</div>;
   }
@@ -40,10 +46,32 @@ const AdminDashboard = () => {
       <aside className="sidebar">
         <h1>Admin Panel</h1>
         <ul>
-          <li onClick={() => setCurrentPage("dashboard")}>Dashboard</li>
-          <li onClick={() => setCurrentPage("roles")}>Quản lý nhóm quyền</li>
+          <li 
+            className={currentPage === "dashboard" ? "active" : ""} 
+            onClick={() => handlePageChange("dashboard")}
+          >
+            Dashboard
+          </li>
+          <li 
+            className={currentPage === "questions" ? "active" : ""} 
+            onClick={() => handlePageChange("questions")}
+          >
+            Quản lý câu hỏi
+          </li>
+          <li 
+            className={currentPage === "exams" ? "active" : ""} 
+            onClick={() => handlePageChange("exams")}
+          >
+            Quản lý đề thi
+          </li>
+          <li 
+            className={currentPage === "roles" ? "active" : ""} 
+            onClick={() => handlePageChange("roles")}
+          >
+            Quản lý nhóm quyền
+          </li>
         </ul>
-        <button className="logout-btn">Logout</button>
+        <button className="logout-btn">Đăng xuất</button>
       </aside>
 
       {/* Main Content */}
@@ -52,7 +80,7 @@ const AdminDashboard = () => {
           <>
             <h1 className="welcome-text">Chào mừng trở lại!</h1>
             <input type="text" placeholder="Tìm kiếm..." className="search-input" />
-
+            
             {/* Statistic Cards */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
               <div className="stat-card pink">
@@ -84,25 +112,8 @@ const AdminDashboard = () => {
               </div>
             </div>
 
-            {/* Charts & Top Users */}
+            {/* Bar Chart */}
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 mt-6">
-              {/* Top Users */}
-              <div className="dashboard-card bg-white p-4 rounded-lg shadow col-span-1">
-                <h3 className="text-lg font-bold mb-2">Top 5 người dùng điểm cao</h3>
-                <ul className="space-y-2">
-                  {Array.isArray(data.topUsers) && data.topUsers.length > 0 ? (
-                    data.topUsers.map((u, i) => (
-                      <li key={i} className="text-sm border-b py-1">
-                        <strong>{u.manguoidung}</strong> - {u.diemthi} điểm
-                      </li>
-                    ))
-                  ) : (
-                    <li>Không có dữ liệu người dùng.</li>
-                  )}
-                </ul>
-              </div>
-
-              {/* Bar Chart */}
               <div className="dashboard-card bg-white p-4 rounded-lg shadow col-span-2">
                 <h3 className="text-lg font-bold mb-2">Thống kê điểm trong tuần</h3>
                 <ResponsiveContainer width="100%" height={240}>
@@ -120,7 +131,18 @@ const AdminDashboard = () => {
           </>
         )}
 
-        {/* Role Manager Page */}
+        {currentPage === "questions" && (
+          <div className="bg-white p-6 rounded-lg shadow">
+            <QuestionManager />
+          </div>
+        )}
+
+        {currentPage === "exams" && (
+          <div className="bg-white p-6 rounded-lg shadow">
+            <ExamManager />
+          </div>
+        )}
+
         {currentPage === "roles" && (
           <div className="bg-white p-6 rounded-lg shadow">
             <h2 className="text-xl font-semibold mb-4">Quản lý nhóm quyền</h2>
@@ -130,7 +152,6 @@ const AdminDashboard = () => {
       </main>
     </div>
   );
-  
 };
 
 export default AdminDashboard;

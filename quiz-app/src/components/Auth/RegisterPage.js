@@ -1,77 +1,116 @@
-import React, { useState } from 'react';
-import axios from 'axios';
-import { Link } from 'react-router-dom';
+import React, { useState } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom"; // Import useNavigate
+import "./RegisterPage.css"; // nếu muốn tách CSS ra file riêng
 
-export default function RegisterForm() {
-  const [form, setForm] = useState({
-    hoten: '',
-    email: '',
-    matkhau: '',
-    ngaysinh: '',
-    gioitinh: '',
-    sodienthoai: '',
-  });
+const RegisterPage = () => {
+  const [email, setEmail] = useState("");
+  const [hoten, setHoten] = useState("");
+  const [matkhau, setMatkhau] = useState("");
+  const [ngaysinh, setNgaysinh] = useState("");
+  const [gioitinh, setGioitinh] = useState(""); 
+  const [sodienthoai, setSodienthoai] = useState("");
+  const [manhomquyen] = useState(2);  
+  const [trangthai] = useState(1);  
+  const [errorMessage, setErrorMessage] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
 
-  const [message, setMessage] = useState('');
+  const navigate = useNavigate(); // Khai báo useNavigate
 
-  const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
-  };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setErrorMessage("");
+    setSuccessMessage("");
 
-  const handleRegister = async () => {
+    const userData = {
+      email,
+      hoten,
+      matkhau,
+      ngaysinh,
+      gioitinh,
+      sodienthoai,
+      manhomquyen,
+      trangthai
+    };
+
     try {
-      console.log(form); // Debug: kiểm tra dữ liệu gửi đi
-      const res = await axios.post('http://localhost/WEBQUIZZ/Chucnang/register.php', form, {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-      if (res.data.status === 'success') {
-        setMessage('Đăng ký thành công! Hãy đăng nhập.');
-        setForm({
-          hoten: '',
-          email: '',
-          matkhau: '',
-          ngaysinh: '',
-          gioitinh: '',
-          sodienthoai: '',
-        });
-      } else {
-        setMessage(res.data.message);
+      const response = await axios.post("http://localhost/WEBQUIZZ/Chucnang/register.php", userData);
+      if (response.data.status === "success") {
+        setSuccessMessage("🎉 Đăng ký thành công!");
+        setEmail("");
+        setHoten("");
+        setMatkhau("");
+        setNgaysinh("");
+        setGioitinh("");
+        setSodienthoai("");
+        
+        // Chuyển hướng tới trang đăng nhập sau khi đăng ký thành công
+        setTimeout(() => {
+          navigate("/login"); // Chuyển hướng đến trang đăng nhập
+        }, 2000); // Đợi 2 giây trước khi chuyển hướng
       }
-    } catch (err) {
-      console.error(err); // In lỗi chi tiết
-      setMessage('Lỗi kết nối máy chủ');
+    } catch (error) {
+      if (error.response && error.response.status === 409) {
+        setErrorMessage("⚠️ Email này đã được sử dụng.");
+      } else {
+        setErrorMessage("❌ Đăng ký thất bại. Vui lòng thử lại.");
+      }
     }
   };
 
   return (
-    <div className="p-6 max-w-md mx-auto shadow rounded bg-white">
-      <h2 className="text-2xl mb-4 font-bold">Đăng ký tài khoản</h2>
+    <div className="register-form-container">
+      <h2>Đăng ký tài khoản</h2>
+      <form onSubmit={handleSubmit} className="register-form">
+        <input
+          type="email"
+          placeholder="Email *"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
+        />
+        <input
+          type="text"
+          placeholder="Họ và tên *"
+          value={hoten}
+          onChange={(e) => setHoten(e.target.value)}
+          required
+        />
+        <input
+          type="password"
+          placeholder="Mật khẩu *"
+          value={matkhau}
+          onChange={(e) => setMatkhau(e.target.value)}
+          required
+        />
+        <input
+          type="date"
+          placeholder="Ngày sinh"
+          value={ngaysinh}
+          onChange={(e) => setNgaysinh(e.target.value)}
+        />
+        <select
+          value={gioitinh}
+          onChange={(e) => setGioitinh(e.target.value)}
+        >
+          <option value="">Chọn giới tính</option>
+          <option value="0">Nữ</option>
+          <option value="1">Nam</option>
+        </select>
+        <input
+          type="text"
+          placeholder="Số điện thoại"
+          value={sodienthoai}
+          onChange={(e) => setSodienthoai(e.target.value)}
+        />
 
-      <input name="hoten" value={form.hoten} onChange={handleChange} placeholder="Họ tên" className="input mb-2 w-full p-2 border rounded" />
-      <input name="email" value={form.email} onChange={handleChange} placeholder="Email" className="input mb-2 w-full p-2 border rounded" />
-      <input name="matkhau" value={form.matkhau} onChange={handleChange} type="password" placeholder="Mật khẩu" className="input mb-2 w-full p-2 border rounded" />
-      <input name="ngaysinh" value={form.ngaysinh} onChange={handleChange} type="date" className="input mb-2 w-full p-2 border rounded" />
-      <select name="gioitinh" value={form.gioitinh} onChange={handleChange} className="input mb-2 w-full p-2 border rounded">
-        <option value="">Chọn giới tính</option>
-        <option value="1">Nam</option>
-        <option value="0">Nữ</option>
-      </select>
-      <input name="sodienthoai" value={form.sodienthoai} onChange={handleChange} placeholder="Số điện thoại" className="input mb-4 w-full p-2 border rounded" />
+        {errorMessage && <p className="error">{errorMessage}</p>}
+        {successMessage && <p className="success">{successMessage}</p>}
 
-      <button onClick={handleRegister} className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
-        Đăng ký
-      </button>
-
-      <p className="mt-3 text-red-500">{message}</p>
-
-      <div className="mt-4 text-center">
-        <p className="text-gray-600">Đã có tài khoản?</p>
-        <Link to="/login" className="text-blue-500 hover:underline">
-          Đăng nhập tại đây
-        </Link>
-      </div>
+        <button type="submit">Đăng ký</button>
+      </form>
     </div>
   );
-}
+};
+
+export default RegisterPage;
