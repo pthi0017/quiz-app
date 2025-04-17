@@ -1,37 +1,37 @@
-import { useEffect, useState } from "react";
+import React from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import './ResultPage.css';
 
-export default function ResultHistory({ userId }) {
-  const [results, setResults] = useState([]);
+const ResultPage = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
 
-  useEffect(() => {
-    fetch(`http://localhost/WEBQUIZZ/Chucnang/xem_ketqua.php?user_id=${userId}`)
-      .then(res => res.json())
-      .then(data => setResults(data));
-  }, [userId]);
+  const { score, totalQuestions, correctAnswers, subjectName } = location.state || {};
+
+  const handleRetry = () => {
+    navigate(`/exam/${subjectName.toLowerCase()}`); // Redirect to the exam page for the same subject
+  };
 
   return (
-    <div className="p-4">
-      <h2 className="text-xl font-bold mb-4">📊 Kết quả các bài thi</h2>
-      <table className="w-full border text-left">
-        <thead>
-          <tr className="bg-gray-200">
-            <th className="p-2">Tên đề</th>
-            <th className="p-2">Ngày thi</th>
-            <th className="p-2">Số câu đúng</th>
-            <th className="p-2">Tổng câu</th>
-          </tr>
-        </thead>
-        <tbody>
-          {results.map(r => (
-            <tr key={r.makq} className="border-t">
-              <td className="p-2">{r.ten_de}</td>
-              <td className="p-2">{new Date(r.ngaythi).toLocaleString()}</td>
-              <td className="p-2">{r.socaudung}</td>
-              <td className="p-2">{r.tongcau}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+    <div className="result-container">
+      <nav className="result-nav">
+        <button className="menu-btn" onClick={() => navigate("/")}>Trang chủ</button>
+        <button className="menu-btn" onClick={() => navigate("/contact")}>Liên hệ</button>
+      </nav>
+
+      <header className="result-header">
+        <h2>Kết quả thi môn: {subjectName}</h2>
+        <div className="result-score">
+          <h3>Điểm: {score}%</h3>
+          <p>Số câu đúng: {correctAnswers}/{totalQuestions}</p>
+        </div>
+      </header>
+
+      <div className="result-actions">
+        <button className="retry-btn" onClick={handleRetry}>Làm lại bài thi</button>
+      </div>
     </div>
   );
-}
+};
+
+export default ResultPage;

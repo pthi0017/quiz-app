@@ -1,17 +1,42 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { FaTrashAlt } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
+import './ExamManager.css';
 
 const ExamManager = () => {
-  const [exams, setExams] = useState([]);
+  const [exams, setExams] = useState([]); // Đảm bảo exams là mảng
   const [loading, setLoading] = useState(true);
+  const [keyword, setKeyword] = useState('');
+  const [subject, setSubject] = useState('');
+  const [subjects, setSubjects] = useState([]);
+  const navigate = useNavigate();
 
-  // Lấy danh sách đề thi
+  // Tải danh sách môn học
   useEffect(() => {
-    axios.get('http://localhost/WEBQUIZZ/Chucnang/get_dethi.php')
+    axios.get('http://localhost/WEBQUIZZ/Chucnang/get_monhoc.php')
+      .then(res => {
+        console.log(res.data);  // Kiểm tra dữ liệu trả về
+        if (Array.isArray(res.data.data)) {  // Kiểm tra mảng dữ liệu trong trường 'data'
+          setSubjects(res.data.data);  // Lưu dữ liệu môn học vào state
+        } else {
+          console.error('Dữ liệu môn học không hợp lệ:', res.data);
+        }
+      })
+      .catch(err => console.error('Lỗi tải môn học:', err));
+  }, []);
+
+  // Tải danh sách đề thi
+  const fetchExams = () => {
+    axios.get('http://localhost/WEBQUIZZ/Chucnang/get_dethi.php', {
+      params: { keyword, subject }
+    })
       .then((response) => {
-        console.log('Dữ liệu đề thi:', response.data); // Kiểm tra dữ liệu API
-        setExams(response.data);
+        if (Array.isArray(response.data)) {  // Kiểm tra nếu response là mảng
+          setExams(response.data);  // Lưu dữ liệu đề thi vào state
+        } else {
+          console.error('Dữ liệu đề thi không hợp lệ:', response.data);
+        }
       })
       .catch((error) => {
         console.error('Lỗi khi tải đề thi:', error);
@@ -19,8 +44,12 @@ const ExamManager = () => {
       .finally(() => {
         setLoading(false);
       });
-  }, []);
-  
+  };
+
+  useEffect(() => {
+    fetchExams();
+  }, [keyword, subject]);
+
   // Xóa đề thi
   const deleteExam = (id) => {
     if (window.confirm('Bạn có chắc chắn muốn xóa đề thi này?')) {
@@ -28,7 +57,7 @@ const ExamManager = () => {
         .then(response => {
           if (response.data.status === 'success') {
             alert(response.data.message);
-            setExams(exams.filter(e => e.madethi !== id)); // Xóa đề thi khỏi state
+            setExams(exams.filter(e => e.madethi !== id));
           } else {
             alert('Xóa đề thi thất bại!');
           }
@@ -39,21 +68,34 @@ const ExamManager = () => {
     }
   };
 
-  // Thêm đề thi (Có thể thêm một form để nhập thông tin đề thi mới)
   const addExam = () => {
-    // Hiện thị form thêm đề thi
-    // Sau khi thêm đề thi thành công, gọi lại axios.get để tải lại danh sách đề thi
+    navigate('/add-exam');
   };
 
-  if (loading) {
-    return <div>Đang tải đề thi...</div>;
-  }
+  if (loading) return <div>Đang tải đề thi...</div>;
 
   return (
-    <div>
+    <div className="exam-manager">
       <h2>Quản lý Đề Thi</h2>
-      <button onClick={addExam} className="btn btn-primary">Thêm Đề Thi</button>
-      <table className="table mt-3">
+
+      <div className="filters">
+        <input
+          type="text"
+          placeholder="Tìm theo tên đề thi..."
+          value={keyword}
+          onChange={(e) => setKeyword(e.target.value)}
+        />
+        <select value={subject} onChange={(e) => setSubject(e.target.value)}>
+          <option value="">Tất cả môn học</option>
+          {subjects.map((s) => (
+            <option key={s.mamonhoc} value={s.mamonhoc}>{s.tenmonhoc}</option>
+          ))}
+        </select>
+      </div>
+
+      <button onClick={addExam} className="add-exam-btn">Thêm Đề Thi</button>
+
+      <table className="table">
         <thead>
           <tr>
             <th>ID</th>
@@ -69,7 +111,7 @@ const ExamManager = () => {
               <td>{exam.tende}</td>
               <td>{exam.thoigiantao}</td>
               <td>
-                <button onClick={() => deleteExam(exam.madethi)} className="btn btn-danger">
+                <button onClick={() => deleteExam(exam.madethi)} className="delete-btn">
                   <FaTrashAlt />
                 </button>
               </td>

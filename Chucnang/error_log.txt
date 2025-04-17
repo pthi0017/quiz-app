@@ -1,0 +1,163 @@
+[17-Apr-2025 07:36:50 UTC] PHP Warning:  Undefined variable $conn in C:\wamp64\www\webquizz\Chucnang\login.php on line 39
+[17-Apr-2025 07:36:50 UTC] PHP Stack trace:
+[17-Apr-2025 07:36:50 UTC] PHP   1. {main}() C:\wamp64\www\webquizz\Chucnang\login.php:0
+[17-Apr-2025 07:36:50 UTC] PHP Fatal error:  Uncaught Error: Call to a member function prepare() on null in C:\wamp64\www\webquizz\Chucnang\login.php:39
+Stack trace:
+#0 {main}
+  thrown in C:\wamp64\www\webquizz\Chucnang\login.php on line 39
+[17-Apr-2025 07:36:53 UTC] PHP Warning:  Undefined variable $conn in C:\wamp64\www\webquizz\Chucnang\login.php on line 39
+[17-Apr-2025 07:36:53 UTC] PHP Stack trace:
+[17-Apr-2025 07:36:53 UTC] PHP   1. {main}() C:\wamp64\www\webquizz\Chucnang\login.php:0
+[17-Apr-2025 07:36:53 UTC] PHP Fatal error:  Uncaught Error: Call to a member function prepare() on null in C:\wamp64\www\webquizz\Chucnang\login.php:39
+Stack trace:
+#0 {main}
+  thrown in C:\wamp64\www\webquizz\Chucnang\login.php on line 39
+[17-Apr-2025 07:36:58 UTC] PHP Warning:  Undefined variable $conn in C:\wamp64\www\webquizz\Chucnang\login.php on line 39
+[17-Apr-2025 07:36:58 UTC] PHP Stack trace:
+[17-Apr-2025 07:36:58 UTC] PHP   1. {main}() C:\wamp64\www\webquizz\Chucnang\login.php:0
+[17-Apr-2025 07:36:58 UTC] PHP Fatal error:  Uncaught Error: Call to a member function prepare() on null in C:\wamp64\www\webquizz\Chucnang\login.php:39
+Stack trace:
+#0 {main}
+  thrown in C:\wamp64\www\webquizz\Chucnang\login.php on line 39
+[17-Apr-2025 07:36:59 UTC] PHP Warning:  Undefined variable $conn in C:\wamp64\www\webquizz\Chucnang\login.php on line 39
+[17-Apr-2025 07:36:59 UTC] PHP Stack trace:
+[17-Apr-2025 07:36:59 UTC] PHP   1. {main}() C:\wamp64\www\webquizz\Chucnang\login.php:0
+[17-Apr-2025 07:36:59 UTC] PHP Fatal error:  Uncaught Error: Call to a member function prepare() on null in C:\wamp64\www\webquizz\Chucnang\login.php:39
+Stack trace:
+#0 {main}
+  thrown in C:\wamp64\www\webquizz\Chucnang\login.php on line 39
+[17-Apr-2025 07:37:00 UTC] PHP Warning:  Undefined variable $conn in C:\wamp64\www\webquizz\Chucnang\login.php on line 39
+[17-Apr-2025 07:37:00 UTC] PHP Stack trace:
+[17-Apr-2025 07:37:00 UTC] PHP   1. {main}() C:\wamp64\www\webquizz\Chucnang\login.php:0
+[17-Apr-2025 07:37:00 UTC] PHP Fatal error:  Uncaught Error: Call to a member function prepare() on null in C:\wamp64\www\webquizz\Chucnang\login.php:39
+Stack trace:
+#0 {main}
+  thrown in C:\wamp64\www\webquizz\Chucnang\login.php on line 39
+[17-Apr-2025 07:37:00 UTC] PHP Warning:  Undefined variable $conn in C:\wamp64\www\webquizz\Chucnang\login.php on line 39
+[17-Apr-2025 07:37:00 UTC] PHP Stack trace:
+[17-Apr-2025 07:37:00 UTC] PHP   1. {main}() C:\wamp64\www\webquizz\Chucnang\login.php:0
+[17-Apr-2025 07:37:00 UTC] PHP Fatal error:  Uncaught Error: Call to a member function prepare() on null in C:\wamp64\www\webquizz\Chucnang\login.php:39
+Stack trace:
+#0 {main}
+  thrown in C:\wamp64\www\webquizz\Chucnang\login.php on line 39
+[17-Apr-2025 07:37:00 UTC] PHP Warning:  Undefined variable $conn in C:\wamp64\www\webquizz\Chucnang\login.php on line 39
+[17-Apr-2025 07:37:00 UTC] PHP Stack trace:
+[17-Apr-2025 07:37:00 UTC] PHP   1. {main}() C:\wamp64\www\webquizz\Chucnang\login.php:0
+[17-Apr-2025 07:37:00 UTC] PHP Fatal error:  Uncaught Error: Call to a member function prepare() on null in C:\wamp64\www\webquizz\Chucnang\login.php:39
+Stack trace:
+#0 {main}
+  thrown in C:\wamp64\www\webquizz\Chucnang\login.php on line 39
+[17-Apr-2025 07:37:00 UTC] PHP Warning:  Undefined variable $conn in C:\wamp64\www\webquizz\Chucnang\login.php on line 39
+[17-Apr-2025 07:37:00 UTC] PHP Stack trace:
+[17-Apr-2025 07:37:00 UTC] PHP   1. {main}() C:\wamp64\www\webquizz\Chucnang\login.php:0
+[17-Apr-2025 07:37:00 UTC] PHP Fatal error:  Uncaught Error: Call to a member function prepare() on null in C:\wamp64\www\webquizz\Chucnang\login.php:39
+Stack trace:
+#0 {main}
+  thrown in C:\wamp64\www\webquizz\Chucnang\login.php on line 39
+[17-Apr-2025 07:37:01 UTC] PHP Warning:  Undefined variable $conn in C:\wamp64\www\webquizz\Chucnang\login.php on line 39
+[17-Apr-2025 07:37:01 UTC] PHP Stack trace:
+[17-Apr-2025 07:37:01 UTC] PHP   1. {main}() C:\wamp64\www\webquizz\Chucnang\login.php:0
+[17-Apr-2025 07:37:01 UTC] PHP Fatal error:  Uncaught Error: Call to a member function prepare() on null in C:\wamp64\www\webquizz\Chucnang\login.php:39
+Stack trace:
+#0 {main}
+  thrown in C:\wamp64\www\webquizz\Chucnang\login.php on line 39
+[17-Apr-2025 07:37:01 UTC] PHP Warning:  Undefined variable $conn in C:\wamp64\www\webquizz\Chucnang\login.php on line 39
+[17-Apr-2025 07:37:01 UTC] PHP Stack trace:
+[17-Apr-2025 07:37:01 UTC] PHP   1. {main}() C:\wamp64\www\webquizz\Chucnang\login.php:0
+[17-Apr-2025 07:37:01 UTC] PHP Fatal error:  Uncaught Error: Call to a member function prepare() on null in C:\wamp64\www\webquizz\Chucnang\login.php:39
+Stack trace:
+#0 {main}
+  thrown in C:\wamp64\www\webquizz\Chucnang\login.php on line 39
+[17-Apr-2025 07:37:01 UTC] PHP Warning:  Undefined variable $conn in C:\wamp64\www\webquizz\Chucnang\login.php on line 39
+[17-Apr-2025 07:37:01 UTC] PHP Stack trace:
+[17-Apr-2025 07:37:01 UTC] PHP   1. {main}() C:\wamp64\www\webquizz\Chucnang\login.php:0
+[17-Apr-2025 07:37:01 UTC] PHP Fatal error:  Uncaught Error: Call to a member function prepare() on null in C:\wamp64\www\webquizz\Chucnang\login.php:39
+Stack trace:
+#0 {main}
+  thrown in C:\wamp64\www\webquizz\Chucnang\login.php on line 39
+[17-Apr-2025 07:37:01 UTC] PHP Warning:  Undefined variable $conn in C:\wamp64\www\webquizz\Chucnang\login.php on line 39
+[17-Apr-2025 07:37:01 UTC] PHP Stack trace:
+[17-Apr-2025 07:37:01 UTC] PHP   1. {main}() C:\wamp64\www\webquizz\Chucnang\login.php:0
+[17-Apr-2025 07:37:01 UTC] PHP Fatal error:  Uncaught Error: Call to a member function prepare() on null in C:\wamp64\www\webquizz\Chucnang\login.php:39
+Stack trace:
+#0 {main}
+  thrown in C:\wamp64\www\webquizz\Chucnang\login.php on line 39
+[17-Apr-2025 07:37:01 UTC] PHP Warning:  Undefined variable $conn in C:\wamp64\www\webquizz\Chucnang\login.php on line 39
+[17-Apr-2025 07:37:01 UTC] PHP Stack trace:
+[17-Apr-2025 07:37:01 UTC] PHP   1. {main}() C:\wamp64\www\webquizz\Chucnang\login.php:0
+[17-Apr-2025 07:37:01 UTC] PHP Fatal error:  Uncaught Error: Call to a member function prepare() on null in C:\wamp64\www\webquizz\Chucnang\login.php:39
+Stack trace:
+#0 {main}
+  thrown in C:\wamp64\www\webquizz\Chucnang\login.php on line 39
+[17-Apr-2025 07:37:01 UTC] PHP Warning:  Undefined variable $conn in C:\wamp64\www\webquizz\Chucnang\login.php on line 39
+[17-Apr-2025 07:37:01 UTC] PHP Stack trace:
+[17-Apr-2025 07:37:01 UTC] PHP   1. {main}() C:\wamp64\www\webquizz\Chucnang\login.php:0
+[17-Apr-2025 07:37:01 UTC] PHP Fatal error:  Uncaught Error: Call to a member function prepare() on null in C:\wamp64\www\webquizz\Chucnang\login.php:39
+Stack trace:
+#0 {main}
+  thrown in C:\wamp64\www\webquizz\Chucnang\login.php on line 39
+[17-Apr-2025 07:37:02 UTC] PHP Warning:  Undefined variable $conn in C:\wamp64\www\webquizz\Chucnang\login.php on line 39
+[17-Apr-2025 07:37:02 UTC] PHP Stack trace:
+[17-Apr-2025 07:37:02 UTC] PHP   1. {main}() C:\wamp64\www\webquizz\Chucnang\login.php:0
+[17-Apr-2025 07:37:02 UTC] PHP Fatal error:  Uncaught Error: Call to a member function prepare() on null in C:\wamp64\www\webquizz\Chucnang\login.php:39
+Stack trace:
+#0 {main}
+  thrown in C:\wamp64\www\webquizz\Chucnang\login.php on line 39
+[17-Apr-2025 07:52:12 UTC] PHP Warning:  Undefined variable $conn in C:\wamp64\www\webquizz\Chucnang\login.php on line 39
+[17-Apr-2025 07:52:12 UTC] PHP Stack trace:
+[17-Apr-2025 07:52:12 UTC] PHP   1. {main}() C:\wamp64\www\webquizz\Chucnang\login.php:0
+[17-Apr-2025 07:52:12 UTC] PHP Fatal error:  Uncaught Error: Call to a member function prepare() on null in C:\wamp64\www\webquizz\Chucnang\login.php:39
+Stack trace:
+#0 {main}
+  thrown in C:\wamp64\www\webquizz\Chucnang\login.php on line 39
+[17-Apr-2025 07:52:27 UTC] PHP Warning:  Undefined variable $conn in C:\wamp64\www\webquizz\Chucnang\login.php on line 39
+[17-Apr-2025 07:52:27 UTC] PHP Stack trace:
+[17-Apr-2025 07:52:27 UTC] PHP   1. {main}() C:\wamp64\www\webquizz\Chucnang\login.php:0
+[17-Apr-2025 07:52:27 UTC] PHP Fatal error:  Uncaught Error: Call to a member function prepare() on null in C:\wamp64\www\webquizz\Chucnang\login.php:39
+Stack trace:
+#0 {main}
+  thrown in C:\wamp64\www\webquizz\Chucnang\login.php on line 39
+[17-Apr-2025 07:52:33 UTC] PHP Warning:  Undefined variable $conn in C:\wamp64\www\webquizz\Chucnang\login.php on line 39
+[17-Apr-2025 07:52:33 UTC] PHP Stack trace:
+[17-Apr-2025 07:52:33 UTC] PHP   1. {main}() C:\wamp64\www\webquizz\Chucnang\login.php:0
+[17-Apr-2025 07:52:33 UTC] PHP Fatal error:  Uncaught Error: Call to a member function prepare() on null in C:\wamp64\www\webquizz\Chucnang\login.php:39
+Stack trace:
+#0 {main}
+  thrown in C:\wamp64\www\webquizz\Chucnang\login.php on line 39
+[17-Apr-2025 07:52:39 UTC] PHP Warning:  Undefined variable $conn in C:\wamp64\www\webquizz\Chucnang\login.php on line 39
+[17-Apr-2025 07:52:39 UTC] PHP Stack trace:
+[17-Apr-2025 07:52:39 UTC] PHP   1. {main}() C:\wamp64\www\webquizz\Chucnang\login.php:0
+[17-Apr-2025 07:52:39 UTC] PHP Fatal error:  Uncaught Error: Call to a member function prepare() on null in C:\wamp64\www\webquizz\Chucnang\login.php:39
+Stack trace:
+#0 {main}
+  thrown in C:\wamp64\www\webquizz\Chucnang\login.php on line 39
+[17-Apr-2025 07:55:44 UTC] PHP Warning:  Undefined global variable $_SESSION in C:\wamp64\www\webquizz\Chucnang\login.php on line 22
+[17-Apr-2025 07:55:44 UTC] PHP Stack trace:
+[17-Apr-2025 07:55:44 UTC] PHP   1. {main}() C:\wamp64\www\webquizz\Chucnang\login.php:0
+[17-Apr-2025 07:55:44 UTC] PHP Warning:  Trying to access array offset on null in C:\wamp64\www\webquizz\Chucnang\login.php on line 22
+[17-Apr-2025 07:55:44 UTC] PHP Stack trace:
+[17-Apr-2025 07:55:44 UTC] PHP   1. {main}() C:\wamp64\www\webquizz\Chucnang\login.php:0
+[17-Apr-2025 07:55:46 UTC] PHP Warning:  Undefined global variable $_SESSION in C:\wamp64\www\webquizz\Chucnang\login.php on line 22
+[17-Apr-2025 07:55:46 UTC] PHP Stack trace:
+[17-Apr-2025 07:55:46 UTC] PHP   1. {main}() C:\wamp64\www\webquizz\Chucnang\login.php:0
+[17-Apr-2025 07:55:46 UTC] PHP Warning:  Trying to access array offset on null in C:\wamp64\www\webquizz\Chucnang\login.php on line 22
+[17-Apr-2025 07:55:46 UTC] PHP Stack trace:
+[17-Apr-2025 07:55:46 UTC] PHP   1. {main}() C:\wamp64\www\webquizz\Chucnang\login.php:0
+[17-Apr-2025 07:55:49 UTC] PHP Warning:  Undefined global variable $_SESSION in C:\wamp64\www\webquizz\Chucnang\login.php on line 22
+[17-Apr-2025 07:55:49 UTC] PHP Stack trace:
+[17-Apr-2025 07:55:49 UTC] PHP   1. {main}() C:\wamp64\www\webquizz\Chucnang\login.php:0
+[17-Apr-2025 07:55:49 UTC] PHP Warning:  Trying to access array offset on null in C:\wamp64\www\webquizz\Chucnang\login.php on line 22
+[17-Apr-2025 07:55:49 UTC] PHP Stack trace:
+[17-Apr-2025 07:55:49 UTC] PHP   1. {main}() C:\wamp64\www\webquizz\Chucnang\login.php:0
+[17-Apr-2025 07:55:50 UTC] PHP Warning:  Undefined global variable $_SESSION in C:\wamp64\www\webquizz\Chucnang\login.php on line 22
+[17-Apr-2025 07:55:50 UTC] PHP Stack trace:
+[17-Apr-2025 07:55:50 UTC] PHP   1. {main}() C:\wamp64\www\webquizz\Chucnang\login.php:0
+[17-Apr-2025 07:55:50 UTC] PHP Warning:  Trying to access array offset on null in C:\wamp64\www\webquizz\Chucnang\login.php on line 22
+[17-Apr-2025 07:55:50 UTC] PHP Stack trace:
+[17-Apr-2025 07:55:50 UTC] PHP   1. {main}() C:\wamp64\www\webquizz\Chucnang\login.php:0
+[17-Apr-2025 07:55:50 UTC] PHP Warning:  Undefined global variable $_SESSION in C:\wamp64\www\webquizz\Chucnang\login.php on line 22
+[17-Apr-2025 07:55:50 UTC] PHP Stack trace:
+[17-Apr-2025 07:55:50 UTC] PHP   1. {main}() C:\wamp64\www\webquizz\Chucnang\login.php:0
+[17-Apr-2025 07:55:50 UTC] PHP Warning:  Trying to access array offset on null in C:\wamp64\www\webquizz\Chucnang\login.php on line 22
+[17-Apr-2025 07:55:50 UTC] PHP Stack trace:
+[17-Apr-2025 07:55:50 UTC] PHP   1. {main}() C:\wamp64\www\webquizz\Chucnang\login.php:0

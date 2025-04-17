@@ -1,0 +1,56 @@
+/* ResultPage.css */
+.result-container {
+    padding: 20px;
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+  }
+  
+  .result-nav {
+    margin-bottom: 20px;
+  }
+  
+  .menu-btn {
+    padding: 10px 20px;
+    margin: 5px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  .menu-btn:hover {
+    background-color: #0056b3;
+  }
+  
+  .result-header {
+    margin-bottom: 30px;
+  }
+  
+  .result-score {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .result-actions {
+    margin-top: 20px;
+  }
+  
+  .retry-btn {
+    padding: 15px 30px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+  
+  .retry-btn:hover {
+    background-color: #218838;
+  }
+  

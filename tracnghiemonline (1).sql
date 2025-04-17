@@ -592,14 +592,7 @@ INSERT INTO `cauhoi` (`macauhoi`, `noidung`, `dokho`, `mamonhoc`, `machuong`, `n
 --
 
 DROP TABLE IF EXISTS `cautraloi`;
-CREATE TABLE IF NOT EXISTS `cautraloi` (
-  `macautl` int NOT NULL AUTO_INCREMENT,
-  `macauhoi` int NOT NULL,
-  `noidungtl` varchar(500) COLLATE utf8mb4_general_ci NOT NULL,
-  `ladapan` tinyint(1) NOT NULL,
-  PRIMARY KEY (`macautl`),
-  KEY `FK_CAUTRALOI_CAUHOI` (`macauhoi`)
-) ENGINE=InnoDB AUTO_INCREMENT=2147 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
 
 --
 -- Dumping data for table `cautraloi`

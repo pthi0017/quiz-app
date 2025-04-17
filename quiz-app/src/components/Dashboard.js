@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { FiUsers, FiFileText, FiClipboard } from "react-icons/fi";
+import { useNavigate } from "react-router-dom";
 import RoleManager from "./Auth/RoleManager";
 import './AdminDashboard.css';
 import QuestionManager from "./QuestionManager";
@@ -14,6 +15,17 @@ const AdminDashboard = () => {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState("dashboard");
+  const [keyword, setKeyword] = useState('');
+  const [subjectFilter, setSubjectFilter] = useState('');
+  const navigate = useNavigate();
+
+  // Kiểm tra nếu chưa đăng nhập thì chuyển về trang login
+  useEffect(() => {
+    const user = localStorage.getItem('user');
+    if (!user) {
+      navigate('/login');
+    }
+  }, [navigate]);
 
   useEffect(() => {
     axios.get("http://localhost/WEBQUIZZ/Chucnang/dashboard_data.php")
@@ -21,6 +33,11 @@ const AdminDashboard = () => {
       .catch(err => console.error("Lỗi khi tải dashboard data:", err))
       .finally(() => setLoading(false));
   }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem('user');
+    navigate('/login');
+  };
 
   const barChartData = [
     { name: 'CN', điểm: 65 },
@@ -34,6 +51,13 @@ const AdminDashboard = () => {
 
   const handlePageChange = (page) => {
     setCurrentPage(page);
+  };
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    // Logic tìm kiếm theo từ khóa và môn học
+    // Bạn có thể sử dụng bộ lọc này trong các trang Quản lý câu hỏi và đề thi
+    console.log("Tìm kiếm theo từ khóa:", keyword, "và môn học:", subjectFilter);
   };
 
   if (loading) {
@@ -71,7 +95,7 @@ const AdminDashboard = () => {
             Quản lý nhóm quyền
           </li>
         </ul>
-        <button className="logout-btn">Đăng xuất</button>
+        <button className="logout-btn" onClick={handleLogout}>Đăng xuất</button>
       </aside>
 
       {/* Main Content */}
@@ -79,7 +103,26 @@ const AdminDashboard = () => {
         {currentPage === "dashboard" && (
           <>
             <h1 className="welcome-text">Chào mừng trở lại!</h1>
-            <input type="text" placeholder="Tìm kiếm..." className="search-input" />
+            <form onSubmit={handleSearch} className="search-form">
+              <input 
+                type="text" 
+                placeholder="Tìm kiếm..." 
+                className="search-input" 
+                value={keyword} 
+                onChange={(e) => setKeyword(e.target.value)} 
+              />
+              <select 
+                value={subjectFilter} 
+                onChange={(e) => setSubjectFilter(e.target.value)} 
+                className="subject-filter"
+              >
+                <option value="">Chọn môn học</option>
+                {/* Dynamic subjects could be added here */}
+                <option value="math">Toán</option>
+                <option value="science">Khoa học</option>
+              </select>
+              <button type="submit" className="search-btn">Tìm kiếm</button>
+            </form>
             
             {/* Statistic Cards */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">

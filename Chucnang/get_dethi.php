@@ -1,32 +1,39 @@
 <?php
-
-include('connect.php'); // Kết nối cơ sở dữ liệu
 header("Content-Type: application/json; charset=UTF-8");
-header("Access-Control-Allow-Origin: *");
-header("Access-Control-Allow-Headers: Content-Type");
-header("Access-Control-Allow-Methods: POST");
-// Kiểm tra kết nối cơ sở dữ liệu
-if ($conn->connect_error) {
-    die("Kết nối cơ sở dữ liệu thất bại: " . $conn->connect_error);
+header("Access-Control-Allow-Origin: http://localhost:3000");
+header("Access-Control-Allow-Credentials: true");
+
+$host = "localhost";
+$username = "root";
+$password = "";
+$database = "tracnghiemonline";
+
+try {
+    $pdo = new PDO(
+        "mysql:host=$host;dbname=$database;charset=utf8mb4",
+        $username,
+        $password,
+        [
+            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+            PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
+        ]
+    );
+} catch (PDOException $e) {
+    http_response_code(500);
+    echo json_encode(["success" => false, "message" => "Kết nối CSDL thất bại: " . $e->getMessage()]);
+    exit;
 }
 
-$sql = "SELECT * FROM dethi"; // Truy vấn lấy tất cả đề thi
-$result = $conn->query($sql);
+try {
+    $stmt = $pdo->query("SELECT * FROM dethi");
+    $dethi = $stmt->fetchAll();
 
-if (!$result) {
-    // Kiểm tra lỗi SQL
-    die("Lỗi truy vấn: " . $conn->error);
+    echo json_encode($dethi);  // Trả về mảng đề thi
+} catch (PDOException $e) {
+    http_response_code(500);
+    echo json_encode([
+        "success" => false,
+        "message" => "Lỗi truy vấn đề thi: " . $e->getMessage()
+    ]);
 }
-
-$exams = array();
-if ($result->num_rows > 0) {
-    // Lặp qua kết quả truy vấn và đưa vào mảng $exams
-    while ($row = $result->fetch_assoc()) {
-        $exams[] = $row;
-    }
-}
-
-// Trả về dữ liệu dưới dạng JSON
-header('Content-Type: application/json');
-echo json_encode($exams);
 ?>

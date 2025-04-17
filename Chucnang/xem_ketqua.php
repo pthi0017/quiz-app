@@ -1,22 +1,46 @@
 <?php
-include 'connect.php';
-header("Access-Control-Allow-Origin: *");
-header("Access-Control-Allow-Headers: Content-Type");
-header("Access-Control-Allow-Methods: POST");
-$user_id = $_GET['user_id'];
+// xem_ketqua.php
+header('Content-Type: application/json');
 
-$sql = "SELECT kq.makq, dt.ten_de, kq.socaudung, kq.tongcau, kq.ngaythi
-        FROM ketqua kq
-        JOIN dethi dt ON kq.made = dt.made
-        WHERE kq.user_id = $user_id
-        ORDER BY kq.ngaythi DESC";
+// Include necessary database connection and functions
+include_once 'connection.php'; // Update with actual file path if needed
 
-$result = mysqli_query($conn, $sql);
+// Get the exam ID and user ID from the request (these might come from POST/GET)
+$mamonhoc = isset($_GET['mamonhoc']) ? $_GET['mamonhoc'] : 0;
+$userid = isset($_GET['userid']) ? $_GET['userid'] : 0;
 
-$data = [];
-while ($row = mysqli_fetch_assoc($result)) {
-    $data[] = $row;
+if ($mamonhoc && $userid) {
+    // Get the total score and correct answers from the database
+    $query = "SELECT * FROM ketqua WHERE mamonhoc = ? AND userid = ?";
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param("ii", $mamonhoc, $userid);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $data = $result->fetch_assoc();
+
+    if ($data) {
+        // Return the result data as JSON
+        echo json_encode([
+            'success' => true,
+            'score' => $data['score'],
+            'correct_answers' => $data['correct_answers'],
+            'total_questions' => $data['total_questions'],
+            'subject_name' => $data['subject_name']
+        ]);
+    } else {
+        echo json_encode([
+            'success' => false,
+            'message' => 'Kết quả không tìm thấy.'
+        ]);
+    }
+
+    $stmt->close();
+} else {
+    echo json_encode([
+        'success' => false,
+        'message' => 'Thông tin không đầy đủ.'
+    ]);
 }
 
-echo json_encode($data);
+$conn->close();
 ?>

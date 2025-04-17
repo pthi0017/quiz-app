@@ -1,87 +1,211 @@
-import { useEffect, useState } from "react";
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import './AddQuestion.css';
 
-export default function AddQuestion() {
-  const [monhoc, setMonhoc] = useState([]);
-  const [form, setForm] = useState({
-    noidung: "", mamonhoc: "", machuong: "", mucdo: "",
-    dapan: [{ noidungtl: "", ladapan: true }, { noidungtl: "" }, { noidungtl: "" }, { noidungtl: "" }]
+const AddQuestion = () => {
+  const [formData, setFormData] = useState({
+    noidung: '',
+    dokho: '',
+    mamonhoc: '',
+    machuong: '',
   });
 
+  const [subjects, setSubjects] = useState([]);
+  const [chapters, setChapters] = useState([]);
+  const [message, setMessage] = useState({ text: '', type: '' });
+  const [loading, setLoading] = useState(false);
+
+  // Fetch subjects on component mount
   useEffect(() => {
-    fetch("http://localhost/WEBQUIZZ/Chucnang/get_monhoc.php")
-      .then(res => res.json())
-      .then(setMonhoc);
+    const fetchSubjects = async () => {
+      try {
+        const response = await axios.get('http://localhost/WEBQUIZZ/Chucnang/get_monhoc.php');
+        setSubjects(response.data);
+      } catch (error) {
+        console.error('Error fetching subjects:', error);
+        setMessage({ text: '❌ Lỗi khi tải danh sách môn học', type: 'error' });
+      }
+    };
+    fetchSubjects();
   }, []);
 
-  const updateAnswer = (index, key, value) => {
-    const newAnswers = [...form.dapan];
-    if (key === "ladapan") {
-      newAnswers.forEach((a, i) => (newAnswers[i].ladapan = false));
+  // Fetch chapters when subject changes
+  useEffect(() => {
+    if (formData.mamonhoc) {
+      const fetchChapters = async () => {
+        try {
+          const response = await axios.get(
+            `http://localhost/WEBQUIZZ/Chucnang/get_chuong.php?mamonhoc=${formData.mamonhoc}`
+          );
+          setChapters(response.data);
+          // Reset chapter selection when subject changes
+          setFormData(prev => ({ ...prev, machuong: '' }));
+        } catch (error) {
+          console.error('Error fetching chapters:', error);
+          setMessage({ text: '❌ Lỗi khi tải danh sách chương', type: 'error' });
+        }
+      };
+      fetchChapters();
+    } else {
+      setChapters([]);
     }
-    newAnswers[index][key] = value;
-    setForm({ ...form, dapan: newAnswers });
+  }, [formData.mamonhoc]);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  const submit = () => {
-    fetch("http://localhost/WEBQUIZ/Chucnang/add_cauhoi.php", {
-      method: "POST",
-      body: JSON.stringify(form)
-    })
-      .then(res => res.json())
-      .then(data => {
-        if (data.message) alert("✅ Thêm thành công!");
-        else alert("❌ Lỗi!");
+  const validateForm = () => {
+    if (!formData.noidung || !formData.dokho || !formData.mamonhoc || !formData.machuong) {
+      setMessage({ text: '❌ Vui lòng điền đầy đủ thông tin', type: 'error' });
+      return false;
+    }
+
+    if (formData.noidung.length < 10) {
+      setMessage({ text: '❌ Nội dung câu hỏi quá ngắn (tối thiểu 10 ký tự)', type: 'error' });
+      return false;
+    }
+
+    if (formData.dokho < 1 || formData.dokho > 5) {
+      setMessage({ text: '❌ Độ khó phải từ 1 đến 5', type: 'error' });
+      return false;
+    }
+
+    return true;
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+
+    if (!validateForm()) {
+      setLoading(false);
+      return;
+    }
+
+    try {
+      const response = await axios.post(
+        'http://localhost/WEBQUIZZ/Chucnang/add_cauhoi.php',
+        formData,
+        { withCredentials: true }
+      );
+
+      if (response.data.status === 'success') {
+        setMessage({ text: '✅ ' + response.data.message, type: 'success' });
+        setFormData({ noidung: '', dokho: '', mamonhoc: '', machuong: '' });
+      } else {
+        setMessage({ text: '❌ ' + response.data.message, type: 'error' });
+      }
+    } catch (error) {
+      console.error('Error adding question:', error);
+      setMessage({ 
+        text: '❌ ' + (error.response?.data?.message || 'Lỗi kết nối đến máy chủ'), 
+        type: 'error' 
       });
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const resetForm = () => {
+    setFormData({ noidung: '', dokho: '', mamonhoc: '', machuong: '' });
+    setMessage({ text: '', type: '' });
   };
 
   return (
-    <div className="p-4">
-      <h2 className="text-xl font-bold mb-4">➕ Thêm câu hỏi</h2>
-      <textarea className="w-full mb-2 border p-2" rows="3"
-        placeholder="Nội dung câu hỏi"
-        value={form.noidung}
-        onChange={e => setForm({ ...form, noidung: e.target.value })}
-      />
+    <div className="add-question-form">
+      <h2>Thêm Câu Hỏi Mới</h2>
 
-      <div className="flex gap-2 mb-2">
-        <select onChange={e => setForm({ ...form, mamonhoc: e.target.value })}>
-          <option>-- Môn học --</option>
-          {monhoc.map(m => (
-            <option key={m.mamonhoc} value={m.mamonhoc}>{m.tenmonhoc}</option>
-          ))}
-        </select>
-        <input type="number" placeholder="Chương" className="border p-1"
-          onChange={e => setForm({ ...form, machuong: e.target.value })} />
-        <select onChange={e => setForm({ ...form, mucdo: e.target.value })}>
-          <option>Mức độ</option>
-          <option value="Dễ">Dễ</option>
-          <option value="Trung bình">Trung bình</option>
-          <option value="Khó">Khó</option>
-        </select>
-      </div>
+      {message.text && (
+        <div className={`message ${message.type}-message`}>
+          {message.text}
+        </div>
+      )}
 
-      <div className="mb-4">
-        <p className="font-semibold">Các đáp án:</p>
-        {form.dapan.map((dp, i) => (
-          <div key={i} className="flex items-center gap-2 mb-1">
-            <input
-              type="radio"
-              name="ladapan"
-              checked={dp.ladapan || false}
-              onChange={() => updateAnswer(i, "ladapan", true)}
-            />
-            <input
-              type="text"
-              className="flex-1 border p-1"
-              placeholder={`Đáp án ${i + 1}`}
-              value={dp.noidungtl}
-              onChange={e => updateAnswer(i, "noidungtl", e.target.value)}
-            />
+      <form onSubmit={handleSubmit}>
+        <div className="form-group">
+          <label>Nội dung câu hỏi:</label>
+          <textarea
+            name="noidung"
+            value={formData.noidung}
+            onChange={handleChange}
+            required
+            maxLength="500"
+            rows="5"
+          />
+          <div className="char-counter">
+            {formData.noidung.length}/500 ký tự
           </div>
-        ))}
-      </div>
+        </div>
 
-      <button onClick={submit} className="bg-green-500 text-white px-4 py-2 rounded">Lưu câu hỏi</button>
+        <div className="form-group">
+          <label>Độ khó (1-5):</label>
+          <input
+            type="number"
+            name="dokho"
+            value={formData.dokho}
+            onChange={handleChange}
+            min="1"
+            max="5"
+            required
+          />
+        </div>
+
+        <div className="form-group">
+          <label>Môn học:</label>
+          <select
+            name="mamonhoc"
+            value={formData.mamonhoc}
+            onChange={handleChange}
+            required
+          >
+            <option value="">Chọn môn học</option>
+            {subjects.map(subject => (
+              <option key={subject.mamonhoc} value={subject.mamonhoc}>
+                {subject.tenmonhoc}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        <div className="form-group">
+          <label>Chương:</label>
+          <select
+            name="machuong"
+            value={formData.machuong}
+            onChange={handleChange}
+            required
+            disabled={!formData.mamonhoc || chapters.length === 0}
+          >
+            <option value="">Chọn chương</option>
+            {chapters.map(chapter => (
+              <option key={chapter.machuong} value={chapter.machuong}>
+                {chapter.tenchuong}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        <div className="form-actions">
+          <button
+            type="submit"
+            className={`button primary ${loading ? 'loading' : ''}`}
+            disabled={loading}
+          >
+            {loading ? 'Đang thêm...' : 'Thêm Câu Hỏi'}
+          </button>
+          <button
+            type="button"
+            className="button secondary"
+            onClick={resetForm}
+          >
+            Xóa Form
+          </button>
+        </div>
+      </form>
     </div>
   );
-}
+};
+
+export default AddQuestion;

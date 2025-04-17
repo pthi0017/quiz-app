@@ -1,81 +1,149 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { FaTrashAlt } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
+import './QuestionManager.css';
 
 const QuestionManager = () => {
   const [questions, setQuestions] = useState([]);
   const [loading, setLoading] = useState(true);
-  
-  // Lấy danh sách câu hỏi
+  const [keyword, setKeyword] = useState('');
+  const [subject, setSubject] = useState('');
+  const [subjects, setSubjects] = useState([]);
+  const navigate = useNavigate();
+
+  // Load subjects
   useEffect(() => {
-    axios.get('http://localhost/WEBQUIZZ/Chucnang/get_cauhoi.php')
-      .then((response) => {
-        setQuestions(response.data);
+    axios.get('http://localhost/WEBQUIZZ/Chucnang/get_monhoc.php')
+      .then(res => {
+        if (res.data.success && Array.isArray(res.data.data)) {
+          setSubjects(res.data.data);
+        } else {
+          console.error('Invalid subject data:', res.data);
+          alert('Could not load subjects.');
+        }
       })
-      .catch((error) => {
-        console.error('Lỗi khi tải câu hỏi:', error);
+      .catch(err => {
+        console.error('Error loading subjects:', err);
+        alert('Error loading subjects.');
+      });
+  }, []);
+
+  // Load questions when keyword or subject changes
+  useEffect(() => {
+    setLoading(true);
+    const params = {};
+
+    if (keyword) params.keyword = keyword;
+    if (subject) params.subject = subject;
+
+    axios.get('http://localhost/WEBQUIZZ/Chucnang/get_cauhoi.php', { params })
+      .then(res => {
+        if (res.data.success && Array.isArray(res.data.data)) {
+          setQuestions(res.data.data);
+        } else {
+          console.error('Invalid question data:', res.data);
+          alert('No questions found.');
+          setQuestions([]);
+        }
+      })
+      .catch(err => {
+        console.error('Error loading questions:', err);
+        alert('Error loading questions.');
+        setQuestions([]);
       })
       .finally(() => {
         setLoading(false);
       });
-  }, []);
+  }, [keyword, subject]);
 
-  // Xóa câu hỏi
   const deleteQuestion = (id) => {
-    if (window.confirm('Bạn có chắc chắn muốn xóa câu hỏi này?')) {
+    if (window.confirm('Are you sure you want to delete this question?')) {
       axios.get(`http://localhost/WEBQUIZZ/Chucnang/delete_cauhoi.php?id=${id}`)
-        .then(response => {
-          if (response.data.status === 'success') {
-            alert(response.data.message);
-            setQuestions(questions.filter(q => q.macauhoi !== id)); // Xóa câu hỏi khỏi state
+        .then(res => {
+          if (res.data.status === 'success') {
+            alert('Question deleted successfully.');
+            setQuestions(prev => prev.filter(q => q.macauhoi !== id));
           } else {
-            alert('Xóa câu hỏi thất bại!');
+            alert('Delete failed: ' + res.data.message);
           }
         })
-        .catch(error => {
-          console.error('Lỗi khi xóa câu hỏi:', error);
+        .catch(err => {
+          console.error('Error deleting question:', err);
         });
     }
   };
 
-  // Thêm câu hỏi (Có thể thêm một form để nhập câu hỏi mới)
   const addQuestion = () => {
-    // Hiện thị form thêm câu hỏi
-    // Sau khi thêm câu hỏi thành công, gọi lại axios.get để tải lại danh sách câu hỏi
+    navigate('/add-question');
   };
 
-  if (loading) {
-    return <div>Đang tải câu hỏi...</div>;
-  }
-
   return (
-    <div>
-      <h2>Quản lý Câu Hỏi</h2>
-      <button onClick={addQuestion} className="btn btn-primary">Thêm Câu Hỏi</button>
-      <table className="table mt-3">
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Nội Dung</th>
-            <th>Độ Khó</th>
-            <th>Thao Tác</th>
-          </tr>
-        </thead>
-        <tbody>
-          {questions.map((question) => (
-            <tr key={question.macauhoi}>
-              <td>{question.macauhoi}</td>
-              <td>{question.noidung}</td>
-              <td>{question.dokho}</td>
-              <td>
-                <button onClick={() => deleteQuestion(question.macauhoi)} className="btn btn-danger">
-                  <FaTrashAlt />
-                </button>
-              </td>
-            </tr>
+    <div className="question-manager">
+      <h2>Question Management</h2>
+
+      <div className="filters">
+        <input
+          type="text"
+          placeholder="tìm theo câu hỏi..."
+          value={keyword}
+          onChange={(e) => setKeyword(e.target.value)}
+        />
+        <select 
+          value={subject} 
+          onChange={(e) => setSubject(e.target.value)}
+        >
+          <option value="">tất cả môn học</option>
+          {subjects.map((s) => (
+            <option key={s.mamonhoc} value={s.mamonhoc}>
+              {s.tenmonhoc}
+            </option>
           ))}
-        </tbody>
-      </table>
+        </select>
+      </div>
+
+      <button onClick={addQuestion} className="add-question-btn">
+        thêm câu hỏi
+      </button>
+
+      {loading ? (
+        <div>Loading questions...</div>
+      ) : (
+        <table className="question-table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Content</th>
+              <th>Difficulty</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {questions.length > 0 ? (
+              questions.map((question) => (
+                <tr key={question.macauhoi}>
+                  <td>{question.macauhoi}</td>
+                  <td>{question.noidung}</td>
+                  <td>{question.dokho}</td>
+                  <td>
+                    <button
+                      onClick={() => deleteQuestion(question.macauhoi)}
+                      className="delete-btn"
+                      aria-label="Delete question"
+                    >
+                      <FaTrashAlt />
+                    </button>
+                  </td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td colSpan="4" className="no-questions">No questions found.</td>
+              </tr>
+            )}
+          </tbody>
+        </table>
+      )}
     </div>
   );
 };
